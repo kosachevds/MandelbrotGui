@@ -31,7 +31,7 @@ namespace Mandelbrot
 
         private void DrawSet()
         {
-            MandelbrotSet.createImage(this.bitmap, this.pixelStep, this.minReal, this.minImag, MaxIterations);
+            MandelbrotSet.fillImage(this.bitmap, this.pixelStep, this.minReal, this.minImag, MaxIterations);
             this.setView.Refresh();
         }
 
