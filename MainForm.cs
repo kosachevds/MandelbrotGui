@@ -38,12 +38,12 @@ namespace MandelbrotGui
         private void ZoomIn()
         {
             this.scaleStep = this.AreaWidth * this.pixelStep * ScaleFactor;
-            this.Scale(-scaleStep);
+            Scale(-scaleStep);
         }
 
         private void ZoomOut()
         {
-            this.Scale(scaleStep);
+            Scale(scaleStep);
             this.scaleStep = this.AreaWidth * this.pixelStep * ScaleFactor /
                 (1 - 2 * ScaleFactor);
         }
@@ -83,32 +83,32 @@ namespace MandelbrotGui
 
         private void btnPlus_Click(object sender, EventArgs e)
         {
-            this.RedrawWith(ZoomIn);
+            RedrawWith(ZoomIn);
         }
 
         private void btnUp_Click(object sender, EventArgs e)
         {
-            this.RedrawWith(MoveUp);
+            RedrawWith(MoveUp);
         }
 
         private void btnMinus_Click(object sender, EventArgs e)
         {
-            this.RedrawWith(ZoomOut);
+            RedrawWith(ZoomOut);
         }
 
         private void btnLeft_Click(object sender, EventArgs e)
         {
-            this.RedrawWith(MoveLeft);
+            RedrawWith(MoveLeft);
         }
 
         private void btnRight_Click(object sender, EventArgs e)
         {
-            this.RedrawWith(MoveRight);
+            RedrawWith(MoveRight);
         }
 
         private void btnDown_Click(object sender, EventArgs e)
         {
-            this.RedrawWith(MoveDown);
+            RedrawWith(MoveDown);
         }
     }
 }
