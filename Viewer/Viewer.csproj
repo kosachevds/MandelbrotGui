@@ -86,7 +86,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Mandelbrot\MandelbrotSet.fsproj">
+    <ProjectReference Include="..\Mandelbrot\MandelbrotSet.fsproj">
       <Project>{a62d80f8-e415-48cc-9802-2b622288602f}</Project>
       <Name>MandelbrotSet</Name>
     </ProjectReference>
