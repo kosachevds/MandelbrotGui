@@ -8,7 +8,7 @@ namespace Mandelbrot
     {
         private const double ScaleFactor = 0.2;
         private double scaleStep;
-        private int    iterations;
+        private int    MaxIterations;
         private double minReal;
         private double minImag;
         private double pixelStep;
@@ -20,7 +20,7 @@ namespace Mandelbrot
         public Viewer()
         {
             InitializeComponent();
-            this.iterations = 50;
+            this.MaxIterations = 50;
             this.minReal = -1.5;
             this.minImag = -1.2;
             this.pixelStep = 1 / 175.0;
@@ -32,7 +32,7 @@ namespace Mandelbrot
         private void DrawSet()
         {
             this.setView.Image =
-                Mandelbrot.MandelbrotSet.createImage(bitmap, pixelStep, minReal, minImag, iterations);
+                Mandelbrot.MandelbrotSet.createImage(bitmap, pixelStep, minReal, minImag, MaxIterations);
         }
 
         private void ZoomIn()
