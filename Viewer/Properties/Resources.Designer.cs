@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MandelbrotGui.Properties {
+namespace Mandelbrot.Properties {
     using System;
     
     

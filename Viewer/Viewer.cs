@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace MandelbrotGui
+namespace Mandelbrot
 {
     public partial class Viewer : Form
     {

@@ -1,4 +1,4 @@
-﻿namespace MandelbrotGui
+﻿namespace Mandelbrot
 {
     partial class Viewer
     {
