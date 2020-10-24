@@ -1,6 +1,6 @@
 ﻿namespace MandelbrotGui
 {
-    partial class MainForm
+    partial class Viewer
     {
         /// <summary>
         /// Required designer variable.

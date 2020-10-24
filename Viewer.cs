@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace MandelbrotGui
 {
-    public partial class MainForm : Form
+    public partial class Viewer : Form
     {
         private const double ScaleFactor = 0.2;
         private double scaleStep;
@@ -17,7 +17,7 @@ namespace MandelbrotGui
         private int AreaWidth => this.setView.Width;
         private int AreaHeight => this.setView.Height;
 
-        public MainForm()
+        public Viewer()
         {
             InitializeComponent();
             this.iterations = 50;
