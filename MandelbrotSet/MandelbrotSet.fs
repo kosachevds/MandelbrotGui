@@ -4,14 +4,14 @@ open System.Numerics
 
 let private limit = 2.0
 
-let private isMandelbrotPoint iter c =
+let private isMandelbrotPoint maxCount add =
     // TODO: remade with infinite Sequence
-    let rec countIterations z c iter count =
-        if Complex.Abs(z) < limit && count < iter then
-            countIterations (z * z + c) c iter (count + 1)
+    let rec countIterations z count =
+        if Complex.Abs(z) < limit && count < maxCount then
+            countIterations (z * z + add) (count + 1)
         else
             count
-    countIterations Complex.Zero c iter 0
+    countIterations Complex.Zero 0
 
 let private mapPixel pixelStep minReal minImag x y =
     let real = (float x) * pixelStep + minReal
