@@ -38,7 +38,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Drawing.Common, Version=4.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>packages\System.Drawing.Common.4.7.0\lib\net461\System.Drawing.Common.dll</HintPath>
+      <HintPath>..\packages\System.Drawing.Common.4.7.0\lib\net461\System.Drawing.Common.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -86,8 +86,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Mandelbrot\MandelbrotSet.fsproj">
-      <Project>{a62d80f8-e415-48cc-9802-2b622288602f}</Project>
+    <ProjectReference Include="..\MandelbrotSet\MandelbrotSet.fsproj">
+      <Project>{048a48c8-ee6e-47be-88c8-f2c427f26abf}</Project>
       <Name>MandelbrotSet</Name>
     </ProjectReference>
   </ItemGroup>
