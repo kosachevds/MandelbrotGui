@@ -7,8 +7,8 @@ namespace Mandelbrot
     public partial class Viewer : Form
     {
         private const double ScaleFactor = 0.2;
+        private const int MaxIterations = 50;
         private double scaleStep;
-        private int    MaxIterations;
         private double minReal;
         private double minImag;
         private double pixelStep;
@@ -20,30 +20,30 @@ namespace Mandelbrot
         public Viewer()
         {
             InitializeComponent();
-            this.MaxIterations = 50;
             this.minReal = -1.5;
             this.minImag = -1.2;
             this.pixelStep = 1 / 175.0;
             this.scaleStep = ScaleFactor * this.AreaWidth * this.pixelStep;
             this.bitmap = new Bitmap(this.AreaWidth, this.AreaHeight);
+            this.setView.Image = this.bitmap;
             DrawSet();
         }
 
         private void DrawSet()
         {
-            this.setView.Image =
-                Mandelbrot.MandelbrotSet.createImage(bitmap, pixelStep, minReal, minImag, MaxIterations);
+            MandelbrotSet.createImage(this.bitmap, this.pixelStep, this.minReal, this.minImag, MaxIterations);
+            this.setView.Refresh();
         }
 
         private void ZoomIn()
         {
             this.scaleStep = this.AreaWidth * this.pixelStep * ScaleFactor;
-            Scale(-scaleStep);
+            Scale(-this.scaleStep);
         }
 
         private void ZoomOut()
         {
-            Scale(scaleStep);
+            Scale(this.scaleStep);
             this.scaleStep = this.AreaWidth * this.pixelStep * ScaleFactor /
                 (1 - 2 * ScaleFactor);
         }
@@ -57,22 +57,22 @@ namespace Mandelbrot
 
         private void MoveUp()
         {
-            this.minImag -= scaleStep;
+            this.minImag -= this.scaleStep;
         }
 
         private void MoveDown()
         {
-            this.minImag += scaleStep;
+            this.minImag += this.scaleStep;
         }
 
         private void MoveLeft()
         {
-            this.minReal -= scaleStep;
+            this.minReal -= this.scaleStep;
         }
 
         private void MoveRight()
         {
-            this.minReal += scaleStep;
+            this.minReal += this.scaleStep;
         }
 
         private void RedrawWith(Action action)
