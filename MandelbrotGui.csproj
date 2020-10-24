@@ -86,9 +86,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Mandelbrot\Mandelbrot.fsproj">
+    <ProjectReference Include="Mandelbrot\MandelbrotSet.fsproj">
       <Project>{a62d80f8-e415-48cc-9802-2b622288602f}</Project>
-      <Name>Mandelbrot</Name>
+      <Name>MandelbrotSet</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
