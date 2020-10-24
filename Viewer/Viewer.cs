@@ -13,17 +13,21 @@ namespace Mandelbrot
         private double minImag;
         private double pixelStep;
         private readonly Bitmap bitmap;
+        private readonly int[,] countsMatrix;  // TODO: with sbyte
 
         private int AreaWidth => this.setView.Width;
         private int AreaHeight => this.setView.Height;
 
         public Viewer()
         {
+            // TODO: check MaxValue for matrix item
             InitializeComponent();
+
             this.minReal = -1.5;
             this.minImag = -1.2;
             this.pixelStep = 1 / 175.0;
             this.scaleStep = ScaleFactor * this.AreaWidth * this.pixelStep;
+            this.countsMatrix = new int[this.AreaWidth, this.AreaHeight];
             this.bitmap = new Bitmap(this.AreaWidth, this.AreaHeight);
             this.setView.Image = this.bitmap;
             DrawSet();
@@ -31,8 +35,34 @@ namespace Mandelbrot
 
         private void DrawSet()
         {
-            MandelbrotSet.fillImage(this.pixelStep, this.minReal, this.minImag, MaxIterations, this.bitmap);
+            MandelbrotSet.fillMatrix(this.pixelStep, this.minReal, this.minImag, MaxIterations, this.countsMatrix);
+            CountsToBitmap(this.countsMatrix, this.bitmap);
             this.setView.Refresh();
+        }
+
+        private void CountsToBitmap(int[,] countsMatrix, Bitmap bitmap)
+        {
+            for (int x = 0; x < bitmap.Width; ++x)
+            {
+                for (int y = 0; y < bitmap.Height; ++y)
+                {
+                    var count = countsMatrix[x, y];
+                    var color = GetColor(count);
+                    bitmap.SetPixel(x, y, color);
+                }
+            }
+        }
+
+        private Color GetColor(int count)
+        {
+            if (count >= MaxIterations)
+            {
+                return Color.Black;
+            }
+            var r = (4 * count) % 255;
+            var g = (6 * count) % 255;
+            var b = (8 * count) % 255;
+            return Color.FromArgb(r, g, b);
         }
 
         private void ZoomIn()
