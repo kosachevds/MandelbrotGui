@@ -25,19 +25,6 @@ let private colorize count =
     let b = (8 * count) % 255
     Color.FromArgb(r, g, b)
 
-let fillImage pixelStep minReal minImag maxIterations (image: Bitmap) =
-    let countIterations = isMandelbrotPoint maxIterations
-    let mapPixelWithScale = mapPixel pixelStep minReal minImag
-    for x = 0 to image.Width - 1 do
-        for y = 0 to image.Height - 1 do
-            let gridValue = mapPixelWithScale x y
-            let count = countIterations gridValue
-            if count = maxIterations then
-                image.SetPixel(x, y, Color.Black)
-            else
-                image.SetPixel(x, y, colorize count)
-    image
-
 let fillMatrix pixelStep minReal minImag maxIterations (matrix: int[,]) =
     let countIterations = isMandelbrotPoint maxIterations
     let mapPixelWithScale = mapPixel pixelStep minReal minImag
