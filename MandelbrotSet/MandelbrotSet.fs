@@ -1,6 +1,5 @@
 module Mandelbrot.MandelbrotSet
 
-open System.Drawing
 open System.Numerics
 
 let private limit = 2.0
