@@ -22,7 +22,9 @@ let fillMatrix pixelStep minReal minImag maxIterations (matrix: int[,]) =
     let countIterations = isMandelbrotPoint maxIterations
     let mapPixelWithScale = mapPixel pixelStep minReal minImag
     for x = 0 to matrix.GetLength(0) - 1 do
-        for y = 0 to matrix.GetLength(1) - 1 do
-            let gridValue = mapPixelWithScale x y
-            matrix.[x, y] <- countIterations gridValue
+        let mapPixelWithScale = mapPixelWithScale x
+        seq {0 .. matrix.GetLength(1) - 1}
+        |> Seq.iter (fun y ->
+            matrix.[x, y] <- (y |> mapPixelWithScale |> countIterations)
+        )
     matrix
