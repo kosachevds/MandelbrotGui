@@ -1,0 +1,4 @@
+#ifndef MANDELBROT_CUH
+#define MANDELBROT_CUH
+
+#endif // MANDELBROT_CUH
