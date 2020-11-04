@@ -9,7 +9,7 @@ struct MandelbrotHandle
     int rows, columns;
 };
 
-__global__ void mandelbrotKernel(MandelbrotParams params, CountsMatrix matrix);
+__global__ void mandelbrotKernel(MandelbrotParams params, int rows, int columns, int* buffer);
 
 MandelbrotHandle * initMandelbrotHandle(const MandelbrotParams * params, int rows, int columns)
 {
@@ -24,12 +24,13 @@ MandelbrotHandle * initMandelbrotHandle(const MandelbrotParams * params, int row
     return h;
 }
 
-void fillMatrix(MandelbrotHandle * handle, CountsMatrix * matrix)
+void fillMatrix(const MandelbrotHandle * handle, int* out_buffer)
 {
     // TODO: calculate block_size etc
-    mandelbrotKernel<<<matrix->rows, matrix->columns>>>(handle->params, *matrix);
-    auto bytes_count = matrix->rows * matrix->columns * sizeof(int);
-    cudaMemcpy(matrix->buffer, handle->gpu_buffer, bytes_count, cudaMemcpyDeviceToHost);
+    mandelbrotKernel<<<matrix->rows, matrix->columns>>>
+        (handle->params, handle->rows, handle->columns, handle->gpu_buffer);
+    auto bytes_count = handle->rows * handle->columns * sizeof(int);
+    cudaMemcpy(out_buffer, handle->gpu_buffer, bytes_count, cudaMemcpyDeviceToHost);
 }
 
 void freeMandelbrotHandle(MandelbrotHandle * handle)
