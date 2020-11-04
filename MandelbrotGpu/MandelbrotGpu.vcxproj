@@ -12,10 +12,10 @@
   </ItemGroup>
   <ItemGroup>
     <CudaCompile Include="src\kernel.cu" />
-    <CudaCompile Include="src\mandelbrot.cu" />
+    <CudaCompile Include="src\mandelbrot.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\mandelbrot.cuh" />
+    <ClInclude Include="src\mandelbrot.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{0812ED3E-DE6D-4F90-AF97-31FA87BDDC50}</ProjectGuid>
