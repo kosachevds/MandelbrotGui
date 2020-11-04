@@ -3,6 +3,15 @@ using System.Runtime.InteropServices;
 
 namespace Mandelbrot
 {
+    [StructLayout(LayoutKind.Sequential)]
+    struct MandelbrotParams
+    {
+        public double PixelStep;
+        public double MinReal;
+        public double MinImag;
+        public int MaxIteration;
+    }
+
     class MandelbrotGpu
     {
         private const string LibraryName = "MandelbrotGpu.dll";
