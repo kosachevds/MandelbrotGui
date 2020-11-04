@@ -20,7 +20,7 @@ struct MandelbrotParams
 
 struct MandelbrotHandle;
 
-MANDELBROT_API MandelbrotHandle* initMandelbrotHandle(const MandelbrotParams* params, int bytes_count);
+MANDELBROT_API MandelbrotHandle* initMandelbrotHandle(const MandelbrotParams* params, int rows, int columns);
 
 MANDELBROT_API void fillMatrix(MandelbrotHandle* handle, CountsMatrix* matrix);
 

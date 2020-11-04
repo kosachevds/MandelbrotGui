@@ -4,16 +4,18 @@
 
 struct MandelbrotHandle
 {
-    int* gpu_buffer;
     MandelbrotParams params;
+    int* gpu_buffer;
+    int rows, columns;
 };
 
 __global__ void mandelbrotKernel(MandelbrotParams params, CountsMatrix matrix);
 
-MandelbrotHandle * initMandelbrotHandle(const MandelbrotParams * params, int bytes_count)
+MandelbrotHandle * initMandelbrotHandle(const MandelbrotParams * params, int rows, int columns)
 {
     auto h = new MandelbrotHandle;
     h->params = *params;
+    auto bytes_count = rows * columns * sizeof(int);
     cudaError_t code = cudaMalloc(&h->gpu_buffer, bytes_count);
     if (code != cudaSuccess) {
         delete h;
