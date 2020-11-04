@@ -18,6 +18,8 @@ __device__ inline cuDoubleComplex mapPixel(double pixel_step, double min_real, d
 MandelbrotHandle * initMandelbrotHandle(int rows, int columns)
 {
     auto h = new MandelbrotHandle;
+    h->rows = rows;
+    h->columns = columns;
     auto bytes_count = rows * columns * sizeof(int);
     cudaError_t code = cudaMalloc(&h->gpu_buffer, bytes_count);
     if (code != cudaSuccess) {
