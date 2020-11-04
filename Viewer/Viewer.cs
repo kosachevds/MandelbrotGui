@@ -13,7 +13,8 @@ namespace Mandelbrot
         private double minImag;
         private double pixelStep;
         private readonly Bitmap bitmap;
-        private readonly int[,] countsMatrix;  // TODO: with sbyte
+        private readonly int[] countsMatrix;  // TODO: with sbyte
+        private readonly MandelbrotGpu mandelbrotGpu;
 
         private int AreaWidth => this.setView.Width;
         private int AreaHeight => this.setView.Height;
@@ -27,26 +28,34 @@ namespace Mandelbrot
             this.minImag = -1.2;
             this.pixelStep = 1 / 175.0;
             this.scaleStep = ScaleFactor * this.AreaWidth * this.pixelStep;
-            this.countsMatrix = new int[this.AreaWidth, this.AreaHeight];
+            this.countsMatrix = new int[this.AreaWidth * this.AreaHeight];
             this.bitmap = new Bitmap(this.AreaWidth, this.AreaHeight);
+            this.mandelbrotGpu = new MandelbrotGpu(this.AreaWidth, this.AreaHeight);
             this.setView.Image = this.bitmap;
             DrawSet();
         }
 
         private void DrawSet()
         {
-            MandelbrotSet.fillMatrix(this.pixelStep, this.minReal, this.minImag, MaxIterations, this.countsMatrix);
+            var mparams = new MandelbrotParams
+            {
+                PixelStep = this.pixelStep,
+                MinReal = this.minReal,
+                MinImag = this.minImag,
+                MaxIteration = MaxIterations
+            };
+            mandelbrotGpu.FillMatrix(ref mparams, this.countsMatrix);
             CountsToBitmap(this.countsMatrix, this.bitmap);
             this.setView.Refresh();
         }
 
-        private void CountsToBitmap(int[,] countsMatrix, Bitmap bitmap)
+        private void CountsToBitmap(int[] countsMatrix, Bitmap bitmap)
         {
             for (int x = 0; x < bitmap.Width; ++x)
             {
                 for (int y = 0; y < bitmap.Height; ++y)
                 {
-                    var count = countsMatrix[x, y];
+                    var count = countsMatrix[x * bitmap.Width + y];
                     var color = GetColor(count);
                     bitmap.SetPixel(x, y, color);
                 }
