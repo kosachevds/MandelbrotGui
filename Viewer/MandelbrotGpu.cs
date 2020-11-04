@@ -21,5 +21,8 @@ namespace Mandelbrot
 
         [DllImport(LibraryName)]
         private static extern void fillMatrix(IntPtr handle, IntPtr buffer);
+
+        [DllImport(LibraryName)]
+        private static extern void freeMandelbrotHandle(IntPtr handle);
     }
 }
