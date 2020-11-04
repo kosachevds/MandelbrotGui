@@ -17,6 +17,9 @@ namespace Mandelbrot
         private const string LibraryName = "MandelbrotGpu.dll";
 
         [DllImport(LibraryName)]
+        private static extern IntPtr initMandelbrotHandle(ref MandelbrotParams mparams, int rows, int columns);
+
+        [DllImport(LibraryName)]
         private static extern void fillMatrix(IntPtr handle, IntPtr buffer);
     }
 }
