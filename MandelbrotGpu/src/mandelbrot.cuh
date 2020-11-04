@@ -10,4 +10,6 @@ struct CountsMatrix
     int columns;
 };
 
+MANDELBROT_API void fillMatrix(double pixel_step, double min_real, double min_imag, int max_iteration, CountsMatrix* matrix);
+
 #endif // MANDELBROT_CUH
