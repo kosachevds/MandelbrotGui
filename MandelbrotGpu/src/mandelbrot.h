@@ -18,6 +18,12 @@ struct MandelbrotParams
     int max_iteration;
 };
 
-MANDELBROT_API void fillMatrix(const MandelbrotParams* params, CountsMatrix* matrix);
+struct MandelbrotHandle;
+
+MANDELBROT_API MandelbrotHandle* initMandelbrotHandle(const MandelbrotParams* params);
+
+MANDELBROT_API void fillMatrix(MandelbrotHandle* handle, CountsMatrix* matrix);
+
+MANDELBROT_API void freeMandelbrotHandle(MandelbrotHandle* handle);
 
 #endif // MANDELBROT_CUH
