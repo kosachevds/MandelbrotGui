@@ -56,7 +56,7 @@ __global__ void mandelbrotKernel(MandelbrotParams params, int rows, int columns,
     cuDoubleComplex z = make_cuDoubleComplex(0.0, 0.0);
     int count = 0;
     while (count < params.max_iteration && cuCabs(z) < ABS_LIMIT) {
-        z = cuCmul(cuCmul(z, z), add);
+        z = cuCadd(cuCmul(z, z), add);
         ++count;
     }
     auto flat_index = i * columns + j;
