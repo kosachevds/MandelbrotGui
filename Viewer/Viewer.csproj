@@ -7,8 +7,8 @@
     <ProjectGuid>{EE284F7B-903A-4DEB-B075-BFAF788E269A}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MandelbrotGui</RootNamespace>
-    <AssemblyName>MandelbrotGui</AssemblyName>
+    <RootNamespace>Mandelbrot</RootNamespace>
+    <AssemblyName>Mandelbrot</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
