@@ -16,13 +16,30 @@ namespace Mandelbrot
     {
         private const string LibraryName = "MandelbrotGpu.dll";
 
-        [DllImport(LibraryName)]
+        private IntPtr _handle;
+
+        [DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
         private static extern IntPtr initMandelbrotHandle(int rows, int columns);
 
-        [DllImport(LibraryName)]
-        private static extern void fillMatrix(ref MandelbrotParams mparams, IntPtr handle, IntPtr buffer);
+        [DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
+        private static extern void fillMatrix(IntPtr handle, ref MandelbrotParams mparams, int[] buffer);
 
-        [DllImport(LibraryName)]
+        [DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
         private static extern void freeMandelbrotHandle(IntPtr handle);
+
+        public MandelbrotGpu(int rows, int columns)
+        {
+            this._handle = initMandelbrotHandle(rows, columns);
+        }
+
+        public void FillMatrix(ref MandelbrotParams mparams, int[] matrix)
+        {
+            fillMatrix(this._handle, ref mparams, matrix);
+        }
+
+        ~MandelbrotGpu()
+        {
+            freeMandelbrotHandle(this._handle);
+        }
     }
 }
