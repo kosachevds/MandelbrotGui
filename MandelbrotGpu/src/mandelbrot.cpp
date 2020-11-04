@@ -62,3 +62,11 @@ void mandelbrotKernel(MandelbrotParams params, int rows, int columns, int* buffe
     auto flat_index = i * columns + j;
     buffer[flat_index] = count;
 }
+
+cuDoubleComplex mapPixel(double pixel_step, double min_real, double min_imag, int i, int j)
+{
+    return make_cuDoubleComplex(
+        min_real + i * pixel_step,
+        min_imag + j * pixel_step
+    );
+}
