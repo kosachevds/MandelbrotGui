@@ -3,13 +3,6 @@
 
 #define MANDELBROT_API extern "C" __declspec(dllexport)
 
-struct CountsMatrix
-{
-    int* buffer;
-    int rows;
-    int columns;
-};
-
 struct MandelbrotParams
 {
     double pixel_step;
