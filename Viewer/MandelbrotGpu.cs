@@ -1,0 +1,7 @@
+﻿namespace Mandelbrot
+{
+    class MandelbrotGpu
+    {
+
+    }
+}

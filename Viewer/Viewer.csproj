@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MandelbrotGpu.cs" />
     <Compile Include="Viewer.cs">
       <SubType>Form</SubType>
     </Compile>
