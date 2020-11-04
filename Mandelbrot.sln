@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Viewer", "Viewer\Viewer.csp
 EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "MandelbrotSet", "MandelbrotSet\MandelbrotSet.fsproj", "{048A48C8-EE6E-47BE-88C8-F2C427F26ABF}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MandelbrotGpu", "MandelbrotGpu\MandelbrotGpu.vcxproj", "{0812ED3E-DE6D-4F90-AF97-31FA87BDDC50}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,12 @@ Global
 		{048A48C8-EE6E-47BE-88C8-F2C427F26ABF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{048A48C8-EE6E-47BE-88C8-F2C427F26ABF}.Release|x64.ActiveCfg = Release|Any CPU
 		{048A48C8-EE6E-47BE-88C8-F2C427F26ABF}.Release|x64.Build.0 = Release|Any CPU
+		{0812ED3E-DE6D-4F90-AF97-31FA87BDDC50}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{0812ED3E-DE6D-4F90-AF97-31FA87BDDC50}.Debug|x64.ActiveCfg = Debug|x64
+		{0812ED3E-DE6D-4F90-AF97-31FA87BDDC50}.Debug|x64.Build.0 = Debug|x64
+		{0812ED3E-DE6D-4F90-AF97-31FA87BDDC50}.Release|Any CPU.ActiveCfg = Release|x64
+		{0812ED3E-DE6D-4F90-AF97-31FA87BDDC50}.Release|x64.ActiveCfg = Release|x64
+		{0812ED3E-DE6D-4F90-AF97-31FA87BDDC50}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
