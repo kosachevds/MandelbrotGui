@@ -32,7 +32,7 @@ MandelbrotHandle * initMandelbrotHandle(const MandelbrotParams * params, int row
 void fillMatrix(const MandelbrotHandle * handle, int* out_buffer)
 {
     // TODO: calculate block_size etc
-    mandelbrotKernel<<<matrix->rows, matrix->columns>>>
+    mandelbrotKernel<<<handle->rows, handle->columns>>>
         (handle->params, handle->rows, handle->columns, handle->gpu_buffer);
     auto bytes_count = handle->rows * handle->columns * sizeof(int);
     cudaMemcpy(out_buffer, handle->gpu_buffer, bytes_count, cudaMemcpyDeviceToHost);
@@ -44,7 +44,7 @@ void freeMandelbrotHandle(MandelbrotHandle * handle)
     delete handle;
 }
 
-void mandelbrotKernel(MandelbrotParams params, int rows, int columns, int* buffer)
+__global__ void mandelbrotKernel(MandelbrotParams params, int rows, int columns, int* buffer)
 {
     auto i = blockIdx.y * blockDim.y + threadIdx.y;
     auto j = blockIdx.x * blockDim.x + threadIdx.x;
@@ -63,7 +63,7 @@ void mandelbrotKernel(MandelbrotParams params, int rows, int columns, int* buffe
     buffer[flat_index] = count;
 }
 
-cuDoubleComplex mapPixel(double pixel_step, double min_real, double min_imag, int i, int j)
+__device__ cuDoubleComplex mapPixel(double pixel_step, double min_real, double min_imag, int i, int j)
 {
     return make_cuDoubleComplex(
         min_real + i * pixel_step,
