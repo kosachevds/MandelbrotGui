@@ -8,7 +8,6 @@
 
 struct MandelbrotHandle
 {
-    MandelbrotParams params;
     int* gpu_buffer;
     int rows, columns;
 };
@@ -16,10 +15,9 @@ struct MandelbrotHandle
 __global__ void mandelbrotKernel(MandelbrotParams params, int rows, int columns, int* buffer);
 __device__ inline cuDoubleComplex mapPixel(double pixel_step, double min_real, double min_imag, int i, int j);
 
-MandelbrotHandle * initMandelbrotHandle(const MandelbrotParams * params, int rows, int columns)
+MandelbrotHandle * initMandelbrotHandle(int rows, int columns)
 {
     auto h = new MandelbrotHandle;
-    h->params = *params;
     auto bytes_count = rows * columns * sizeof(int);
     cudaError_t code = cudaMalloc(&h->gpu_buffer, bytes_count);
     if (code != cudaSuccess) {
@@ -29,11 +27,11 @@ MandelbrotHandle * initMandelbrotHandle(const MandelbrotParams * params, int row
     return h;
 }
 
-void fillMatrix(const MandelbrotHandle * handle, int* out_buffer)
+void fillMatrix(const MandelbrotHandle * handle, const MandelbrotParams* params, int* out_buffer)
 {
     // TODO: calculate block_size etc
     mandelbrotKernel<<<handle->rows, handle->columns>>>
-        (handle->params, handle->rows, handle->columns, handle->gpu_buffer);
+        (*params, handle->rows, handle->columns, handle->gpu_buffer);
     auto bytes_count = handle->rows * handle->columns * sizeof(int);
     cudaMemcpy(out_buffer, handle->gpu_buffer, bytes_count, cudaMemcpyDeviceToHost);
 }
