@@ -30,7 +30,7 @@ static int ceilDivision(int value, int divider);
 MandelbrotHandle * initMandelbrotHandle(int rows, int columns)
 {
     auto h = new MandelbrotHandle(rows, columns);
-    auto bytes_count = h->items_count * sizeof(int);
+    auto bytes_count = h->items_count * sizeof(CountType);
     cudaError_t code = cudaMalloc(&h->gpu_buffer, bytes_count);
     if (code != cudaSuccess) {
         delete h;
@@ -43,7 +43,7 @@ void fillMatrix(const MandelbrotHandle * handle, const MandelbrotParams* params,
 {
     mandelbrotKernel<<<handle->grid_sizes, handle->block_sizes>>>
         (*params, handle->rows, handle->columns, handle->gpu_buffer);
-    auto bytes_count = handle->items_count * sizeof(int);
+    auto bytes_count = handle->items_count * sizeof(CountType);
     cudaMemcpy(out_buffer, handle->gpu_buffer, bytes_count, cudaMemcpyDeviceToHost);
 }
 

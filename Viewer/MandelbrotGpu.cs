@@ -22,7 +22,7 @@ namespace Mandelbrot
         private static extern IntPtr initMandelbrotHandle(int rows, int columns);
 
         [DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
-        private static extern void fillMatrix(IntPtr handle, ref MandelbrotParams mparams, int[] buffer);
+        private static extern void fillMatrix(IntPtr handle, ref MandelbrotParams mparams, byte[] buffer);
 
         [DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
         private static extern void freeMandelbrotHandle(IntPtr handle);
@@ -32,7 +32,7 @@ namespace Mandelbrot
             this._handle = initMandelbrotHandle(rows, columns);
         }
 
-        public void FillMatrix(ref MandelbrotParams mparams, int[] matrix)
+        public void FillMatrix(ref MandelbrotParams mparams, byte[] matrix)
         {
             fillMatrix(this._handle, ref mparams, matrix);
         }

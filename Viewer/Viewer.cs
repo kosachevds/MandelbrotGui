@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-using CountType = System.Int32;
+using CountType = System.Byte;
 
 namespace Mandelbrot
 {
@@ -48,7 +48,7 @@ namespace Mandelbrot
             };
             this.tbMaxIterations.Text = MaxIterationsInit.ToString();
             this.scaleStep = ScaleFactor * this.AreaWidth * this.mbParams.PixelStep;
-            this.countsMatrix = new int[this.AreaWidth * this.AreaHeight];
+            this.countsMatrix = new CountType[this.AreaWidth * this.AreaHeight];
             this.bitmap = new Bitmap(this.AreaWidth, this.AreaHeight);
             this.mandelbrotGpu = new MandelbrotGpu(this.AreaHeight, this.AreaWidth);
             this.setView.Image = this.bitmap;
@@ -62,7 +62,7 @@ namespace Mandelbrot
             this.setView.Refresh();
         }
 
-        private void CountsToBitmap(int[] countsMatrix, Bitmap bitmap)
+        private void CountsToBitmap(CountType[] countsMatrix, Bitmap bitmap)
         {
             for (int x = 0; x < bitmap.Width; ++x)
             {

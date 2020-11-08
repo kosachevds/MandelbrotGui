@@ -13,7 +13,7 @@ struct MandelbrotParams
 
 struct MandelbrotHandle;
 
-using CountType = int;
+using CountType = unsigned char;
 
 MANDELBROT_API MandelbrotHandle* initMandelbrotHandle(int rows, int columns);
 
