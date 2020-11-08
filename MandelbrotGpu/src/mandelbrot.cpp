@@ -18,6 +18,7 @@ struct MandelbrotHandle
     dim3 grid_sizes, block_sizes;
 
     MandelbrotHandle(int rows, int columns);
+    ~MandelbrotHandle();
 };
 
 __global__ void mandelbrotKernel(MandelbrotParams params, int rows, int columns, int* buffer);
@@ -46,7 +47,6 @@ void fillMatrix(const MandelbrotHandle * handle, const MandelbrotParams* params,
 
 void freeMandelbrotHandle(MandelbrotHandle * handle)
 {
-    cudaFree(handle->gpu_buffer);
     delete handle;
 }
 
@@ -94,4 +94,9 @@ MandelbrotHandle::MandelbrotHandle(int rows, int columns)
         this->block_sizes = dim3(this->columns, this->rows);
         this->grid_sizes = dim3(1, 1);
     }
+}
+
+MandelbrotHandle::~MandelbrotHandle()
+{
+    cudaFree(this->gpu_buffer);
 }
