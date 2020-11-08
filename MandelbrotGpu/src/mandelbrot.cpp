@@ -15,7 +15,7 @@ constexpr auto MAX_COUNT = std::numeric_limits<CountType>::max();
 
 struct MandelbrotHandle
 {
-    int* gpu_buffer;
+    CountType* gpu_buffer;
     int rows, columns, items_count;
     dim3 grid_sizes, block_sizes;
 
