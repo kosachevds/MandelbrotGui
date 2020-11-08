@@ -1,6 +1,7 @@
 #include "mandelbrot.h"
 
 #include <algorithm>
+#include <limits>
 
 #include <cuda_runtime.h>
 #include <device_launch_parameters.h>
@@ -8,6 +9,7 @@
 
 static const int MAX_BLOCK_SIZE = 1024;
 static const int MAX_SQUARE_BLOCK_SIDE = 32;
+constexpr auto MAX_COUNT = std::numeric_limits<CountType>::max();
 
 #define ABS_LIMIT (2.0)
 
@@ -21,7 +23,7 @@ struct MandelbrotHandle
     ~MandelbrotHandle();
 };
 
-__global__ void mandelbrotKernel(MandelbrotParams params, int rows, int columns, int* buffer);
+__global__ void mandelbrotKernel(MandelbrotParams params, int rows, int columns, CountType* buffer);
 __device__ inline cuDoubleComplex mapPixel(double pixel_step, double min_real, double min_imag, int x, int y);
 static int ceilDivision(int value, int divider);
 
@@ -37,7 +39,7 @@ MandelbrotHandle * initMandelbrotHandle(int rows, int columns)
     return h;
 }
 
-void fillMatrix(const MandelbrotHandle * handle, const MandelbrotParams* params, int* out_buffer)
+void fillMatrix(const MandelbrotHandle * handle, const MandelbrotParams* params, CountType* out_buffer)
 {
     mandelbrotKernel<<<handle->grid_sizes, handle->block_sizes>>>
         (*params, handle->rows, handle->columns, handle->gpu_buffer);
@@ -50,18 +52,17 @@ void freeMandelbrotHandle(MandelbrotHandle * handle)
     delete handle;
 }
 
-__global__ void mandelbrotKernel(MandelbrotParams params, int rows, int columns, int* buffer)
+__global__ void mandelbrotKernel(MandelbrotParams params, int rows, int columns, CountType* buffer)
 {
     auto y = blockIdx.y * blockDim.y + threadIdx.y;
     auto x = blockIdx.x * blockDim.x + threadIdx.x;
     if (y >= rows || x >= columns) {
         return;
     }
-
     auto add = mapPixel(params.pixel_step, params.min_real, params.min_imag, x, y);
     cuDoubleComplex z = make_cuDoubleComplex(0.0, 0.0);
     int count = 0;
-    while (count < params.max_iteration && cuCabs(z) < ABS_LIMIT) {
+    while (count < params.max_iteration && count < MAX_COUNT && cuCabs(z) < ABS_LIMIT) {
         z = cuCadd(cuCmul(z, z), add);
         ++count;
     }

@@ -13,9 +13,11 @@ struct MandelbrotParams
 
 struct MandelbrotHandle;
 
+using CountType = int;
+
 MANDELBROT_API MandelbrotHandle* initMandelbrotHandle(int rows, int columns);
 
-MANDELBROT_API void fillMatrix(const MandelbrotHandle * handle, const MandelbrotParams* params, int* out_buffer);
+MANDELBROT_API void fillMatrix(const MandelbrotHandle * handle, const MandelbrotParams* params, CountType* out_buffer);
 
 MANDELBROT_API void freeMandelbrotHandle(MandelbrotHandle* handle);
 
