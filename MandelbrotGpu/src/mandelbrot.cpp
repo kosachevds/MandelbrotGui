@@ -68,7 +68,7 @@ __global__ void mandelbrotKernel(MandelbrotParams params, int rows, int columns,
         return;
     }
 
-    auto add = mapPixel(params.pixel_step, params.min_real, params.min_imag, i, j);
+    auto add = mapPixel(params.pixel_step, params.min_real, params.min_imag, j, i);
     cuDoubleComplex z = make_cuDoubleComplex(0.0, 0.0);
     int count = 0;
     while (count < params.max_iteration && cuCabs(z) < ABS_LIMIT) {
