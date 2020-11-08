@@ -30,7 +30,7 @@ namespace Mandelbrot
             this.scaleStep = ScaleFactor * this.AreaWidth * this.pixelStep;
             this.countsMatrix = new int[this.AreaWidth * this.AreaHeight];
             this.bitmap = new Bitmap(this.AreaWidth, this.AreaHeight);
-            this.mandelbrotGpu = new MandelbrotGpu(this.AreaWidth, this.AreaHeight);
+            this.mandelbrotGpu = new MandelbrotGpu(this.AreaHeight, this.AreaWidth);
             this.setView.Image = this.bitmap;
             DrawSet();
         }
@@ -55,7 +55,7 @@ namespace Mandelbrot
             {
                 for (int y = 0; y < bitmap.Height; ++y)
                 {
-                    var count = countsMatrix[x * bitmap.Width + y];
+                    var count = countsMatrix[y * bitmap.Width + x];
                     var color = GetColor(count);
                     bitmap.SetPixel(x, y, color);
                 }
