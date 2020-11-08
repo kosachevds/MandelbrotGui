@@ -16,6 +16,8 @@ struct MandelbrotHandle
     int* gpu_buffer;
     int rows, columns, items_count;
     dim3 grid_sizes, block_sizes;
+
+    MandelbrotHandle(int rows, int columns);
 };
 
 __global__ void mandelbrotKernel(MandelbrotParams params, int rows, int columns, int* buffer);
@@ -24,19 +26,7 @@ static int ceilDivision(int value, int divider);
 
 MandelbrotHandle * initMandelbrotHandle(int rows, int columns)
 {
-    auto h = new MandelbrotHandle;
-    h->rows = rows;
-    h->columns = columns;
-    h->items_count = rows * columns;
-    if (h->items_count > MAX_BLOCK_SIZE) {
-        auto block_side = std::min({MAX_SQUARE_BLOCK_SIDE, h->rows, h->columns});
-        h->block_sizes = dim3(block_side, block_side);
-        h->grid_sizes.x = ceilDivision(h->columns, block_side);
-        h->grid_sizes.y = ceilDivision(h->rows, block_side);
-    } else {
-        h->block_sizes = dim3(h->columns, h->rows);
-        h->grid_sizes = dim3(1, 1);
-    }
+    auto h = new MandelbrotHandle(rows, columns);
     auto bytes_count = h->items_count * sizeof(int);
     cudaError_t code = cudaMalloc(&h->gpu_buffer, bytes_count);
     if (code != cudaSuccess) {
@@ -90,4 +80,18 @@ __device__ cuDoubleComplex mapPixel(double pixel_step, double min_real, double m
 int ceilDivision(int value, int divider)
 {
     return int(ceil(double(value) / divider));
+}
+
+MandelbrotHandle::MandelbrotHandle(int rows, int columns)
+    : rows(rows), columns(columns), items_count(rows * columns)
+{
+    if (this->items_count > MAX_BLOCK_SIZE) {
+        auto block_side = std::min({MAX_SQUARE_BLOCK_SIDE, this->rows, this->columns});
+        this->block_sizes = dim3(block_side, block_side);
+        this->grid_sizes.x = ceilDivision(this->columns, block_side);
+        this->grid_sizes.y = ceilDivision(this->rows, block_side);
+    } else {
+        this->block_sizes = dim3(this->columns, this->rows);
+        this->grid_sizes = dim3(1, 1);
+    }
 }
