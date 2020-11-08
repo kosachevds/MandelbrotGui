@@ -35,6 +35,9 @@
             this.btnLeft = new System.Windows.Forms.Button();
             this.btnPlus = new System.Windows.Forms.Button();
             this.btnMinus = new System.Windows.Forms.Button();
+            this.tbMaxIterations = new System.Windows.Forms.TextBox();
+            this.lblMaxIterations = new System.Windows.Forms.Label();
+            this.btnMaxIterations = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.setView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -106,11 +109,41 @@
             this.btnMinus.UseVisualStyleBackColor = true;
             this.btnMinus.Click += new System.EventHandler(this.btnMinus_Click);
             // 
+            // tbMaxIterations
+            // 
+            this.tbMaxIterations.Location = new System.Drawing.Point(303, 489);
+            this.tbMaxIterations.Name = "tbMaxIterations";
+            this.tbMaxIterations.Size = new System.Drawing.Size(85, 20);
+            this.tbMaxIterations.TabIndex = 7;
+            this.tbMaxIterations.TextChanged += new System.EventHandler(this.tbMaxIterations_TextChanged);
+            // 
+            // lblMaxIterations
+            // 
+            this.lblMaxIterations.AutoSize = true;
+            this.lblMaxIterations.Location = new System.Drawing.Point(300, 470);
+            this.lblMaxIterations.Name = "lblMaxIterations";
+            this.lblMaxIterations.Size = new System.Drawing.Size(73, 13);
+            this.lblMaxIterations.TabIndex = 8;
+            this.lblMaxIterations.Text = "Max Iterations";
+            // 
+            // btnMaxIterations
+            // 
+            this.btnMaxIterations.Location = new System.Drawing.Point(303, 518);
+            this.btnMaxIterations.Name = "btnMaxIterations";
+            this.btnMaxIterations.Size = new System.Drawing.Size(75, 23);
+            this.btnMaxIterations.TabIndex = 9;
+            this.btnMaxIterations.Text = "OK";
+            this.btnMaxIterations.UseVisualStyleBackColor = true;
+            this.btnMaxIterations.Click += new System.EventHandler(this.btnMaxIterations_Click);
+            // 
             // Viewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(400, 554);
+            this.Controls.Add(this.btnMaxIterations);
+            this.Controls.Add(this.lblMaxIterations);
+            this.Controls.Add(this.tbMaxIterations);
             this.Controls.Add(this.btnMinus);
             this.Controls.Add(this.btnPlus);
             this.Controls.Add(this.btnRight);
@@ -127,6 +160,7 @@
             this.Text = "Mandelbrot";
             ((System.ComponentModel.ISupportInitialize)(this.setView)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -139,6 +173,9 @@
         private System.Windows.Forms.Button btnLeft;
         private System.Windows.Forms.Button btnPlus;
         private System.Windows.Forms.Button btnMinus;
+        private System.Windows.Forms.TextBox tbMaxIterations;
+        private System.Windows.Forms.Label lblMaxIterations;
+        private System.Windows.Forms.Button btnMaxIterations;
     }
 }
 

@@ -7,7 +7,7 @@ namespace Mandelbrot
     public partial class Viewer : Form
     {
         private const double ScaleFactor = 0.2;
-        private const int MaxIterations = 50;
+        private const int MaxIterationsInit = 50;
         private double scaleStep;
         private readonly Bitmap bitmap;
         private readonly int[] countsMatrix;  // TODO: with sbyte
@@ -42,8 +42,9 @@ namespace Mandelbrot
                 MinReal = -1.5,
                 MinImag = -1.2,
                 PixelStep = 1 / 175.0,
-                MaxIteration = MaxIterations
+                MaxIteration = MaxIterationsInit
             };
+            this.tbMaxIterations.Text = MaxIterationsInit.ToString();
             this.scaleStep = ScaleFactor * this.AreaWidth * this.mbParams.PixelStep;
             this.countsMatrix = new int[this.AreaWidth * this.AreaHeight];
             this.bitmap = new Bitmap(this.AreaWidth, this.AreaHeight);
@@ -74,7 +75,7 @@ namespace Mandelbrot
 
         private Color GetColor(int count)
         {
-            if (count >= MaxIterations)
+            if (count >= MaxIterationsInit)
             {
                 return Color.Black;
             }
@@ -158,6 +159,29 @@ namespace Mandelbrot
         private void btnDown_Click(object sender, EventArgs e)
         {
             RedrawWith(MoveDown);
+        }
+
+        private void tbMaxIterations_TextChanged(object sender, EventArgs e)
+        {
+            var text = this.tbMaxIterations.Text;
+            if (!UInt32.TryParse(text, out var maxIterations))
+            {
+                this.tbMaxIterations.Text = text.Substring(0, text.Length - 1);
+            }
+        }
+
+        private void btnMaxIterations_Click(object sender, EventArgs e)
+        {
+            var text = this.tbMaxIterations.Text;
+            if (!Int32.TryParse(text, out var maxIterations))
+            {
+                return;
+            }
+            if (maxIterations != this.mbParams.MaxIteration)
+            {
+                this.mbParams.MaxIteration = maxIterations;
+                DrawSet();
+            }
         }
     }
 }
