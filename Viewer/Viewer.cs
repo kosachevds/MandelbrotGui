@@ -2,6 +2,8 @@
 using System.Drawing;
 using System.Windows.Forms;
 
+using CountType = System.Int32;
+
 namespace Mandelbrot
 {
     public partial class Viewer : Form
@@ -10,7 +12,7 @@ namespace Mandelbrot
         private const int MaxIterationsInit = 50;
         private double scaleStep;
         private readonly Bitmap bitmap;
-        private readonly int[] countsMatrix;  // TODO: with sbyte
+        private readonly CountType[] countsMatrix;
         private readonly MandelbrotGpu mandelbrotGpu;
         private MandelbrotParams mbParams;
 
@@ -176,6 +178,11 @@ namespace Mandelbrot
             if (!Int32.TryParse(text, out var maxIterations))
             {
                 return;
+            }
+            if (maxIterations > CountType.MaxValue)
+            {
+                MessageBox.Show($"Max iterations cannot be greater than {CountType.MaxValue}");
+                this.tbMaxIterations.Text = CountType.MaxValue.ToString();
             }
             if (maxIterations != this.mbParams.MaxIteration)
             {
